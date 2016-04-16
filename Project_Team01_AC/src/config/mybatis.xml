@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd" >
+<!-- mybatis 구성 설정파일 -->
+<configuration>
+	<!-- LOG4J 활성화 -->
+	<settings>
+		<setting name="logImpl" value="LOG4J" />
+	</settings>
+
+	<!-- 매퍼파일 경로구성-->
+	<mappers>
+		<mapper resource="sqlmap/acMapper.xml"/>
+	</mappers>
+
+</configuration>

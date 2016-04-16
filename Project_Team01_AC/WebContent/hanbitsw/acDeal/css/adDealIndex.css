@@ -1,0 +1,36 @@
+@charset "utf-8";
+/* CSS Document */
+
+h1 {
+	margin-bottom: 20px;
+}
+
+#acDealIndex_menu {
+	float : left;
+	width : 200px;
+	height : 100%;
+	background:#ef3c84;
+}
+
+#acDealIndex_menu .menu_box{
+	margin-top: 40px;
+	margin-left: 20px;
+	margin-bottom: 30px;
+}
+
+#acDealIndex_menu .title {
+	font-size: 20px;
+	font-weight: bold;
+	margin-bottom: 30px;
+}
+#acDealIndex_menu .li_menu {
+	padding-left : 30px;
+	font-size : 15px;
+	color : #000000;
+	text-decoration: none;
+}
+
+#acDealIndex_view {
+	padding-top : 20px;
+	padding-left: 250px;
+}

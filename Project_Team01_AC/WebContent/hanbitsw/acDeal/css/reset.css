@@ -1,0 +1,24 @@
+@charset"utf-8";
+
+html,body,div,span,object,iframe,h1,h2,h3,h4,h5,h6,p,
+blockquote,pre,abbr,address,cite,code,del,dfn,em,img,
+ins,kbd,q,samp,small,strong,sub,sup,var,b,i,dl,dt,dd,ol,ul,li,
+fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,
+article,aside,canvas,details,figcaption,figure,footer,header,hgroup,
+menu,nav,section,summary,time,mark,audio,video{margin:0; padding:0;}
+
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {  display: block; }
+/*html5 �깉濡� 異붽��맂 �슂�냼�뱾�� 釉붾줉�슂�냼濡� �씤�떇�릺吏� �븡�쓬. �씠 �슂�냼�뱾�� ��遺�遺� 釉붾줉�슂�냼�씪 寃쎌슦媛� ��遺�遺꾩씠湲곕븣臾몄뿉 �븳爰쇰쾲�뿉 �꽑�뼵�븿.*/
+
+
+li { list-style:none; }
+img,fieldset,iframe{border:0;}
+/*IE�뿉�꽌 �씠誘몄��뿉 留곹겕媛� 嫄몃┫ �븣 �옄�룞�쑝濡� �뀒�몢由ш� �깮�꽦�릺誘�濡� �뀒�몢由ъ젣嫄�*/
+img{ max-width:100%; }/*width媛믪씠 %濡� �맂 �씠誘몄��뱾�씠 釉뚮씪�슦�� �룺�씠 以� 寃쎌슦 鍮꾨�瑜� 留욎텛�뼱 以꾨룄濡� �븯湲곗쐞�빐 �궗�슜�븯�뒗�뜲 �쁽�옱�뒗 �깭釉붾┸�슜 css�뿉 �빐�떦*/
+
+li img, dd img { vertical-align:top; }
+/*IE�뿉�꽌 �븣�븣濡� li �냽�뿉 �뱾�뼱媛��뒗 �씠誘몄��굹 dd �냽�뿉 �뱾�뼱媛��뒗 �씠誘몄��뿉 �썝移� �븡�뒗 �뿬諛깆씠 �깮�꽦�릺�뒗 釉뚮씪�슦�� �삤瑜섍� 諛쒖깮�븯�뒗 寃쎌슦媛� �엳�뒗�뜲 �씠 紐낅졊�씠  洹� �삤瑜섎�� �뾾�븷以�*/
+input { vertical-align:middle; }
+/*援щ텇�꽑 紐⑹쟻�씠�씪 �닲源�*/
+
+#skip, .skip { font-size:0; width:0; height:0; line-height:0; position:absolute; left:-9999px; }

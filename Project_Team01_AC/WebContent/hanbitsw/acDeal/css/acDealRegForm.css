@@ -1,0 +1,18 @@
+@CHARSET "utf-8";
+
+.acDealRegForm_Box {
+	border:2px solid #3a4553;
+	border-collapse:collapse;
+	margin-bottom: 20px;
+}
+
+.Box_th{
+	padding : 5px;
+	font-weight : bold;
+	background: #aed2da;
+}
+
+#subButton {
+	margin-top : -80px;
+	margin-left: 400px;
+}

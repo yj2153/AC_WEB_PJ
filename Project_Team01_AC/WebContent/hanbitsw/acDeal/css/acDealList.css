@@ -1,0 +1,25 @@
+@CHARSET "utf-8";
+/* 은행명 : 금액  */
+#acDealList_sumBox {
+	margin-bottom: 10px;
+	margin-left: 600px;;
+	
+	border:2px solid #3a4553;
+	border-collapse:collapse;
+}
+
+/* 테두리와 글자간의 거리감 */
+#acDealList_sumBox td {
+	padding: 3px 7px 3px 7px; /*좌 위 우 아래 */
+}
+
+/* 은행명 : 글자 굵게, 배경색 넣기 */
+#sumBox_th{
+	font-weight : bold;
+	background: #aed2da;
+}
+
+/* 수정 삭제 버튼 */
+#DealList_button{
+	margin-top: 20px;
+}

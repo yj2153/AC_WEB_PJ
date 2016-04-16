@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="ac.ns">
+
+	<resultMap id="acDealMap" type="com.team1.acdeal.vo.AcDealDTO">
+		<result column= "deal_id" property="dealId"/>
+		<result column="deal_note" property="dealNote" />
+		<result column="deal_sum" property="dealSum" />
+		<result column="deal_date" property="dealDate" />
+		<result column="category_Name" property="categoryName" />
+		<result column="type_Name" property="typeName" />
+	</resultMap>
+
+	<resultMap id="acTypeMap" type="com.team1.acdeal.vo.AcTypeDTO">
+		<result column="type_id" property="typeId" />
+		<result column="type_name" property="typeName" />
+	</resultMap>
+
+	<resultMap id="acCategoryMap" type="com.team1.acdeal.vo.AcCategoryDTO">
+		<result column="category_id" property="categoryId" />
+		<result column="category_name" property="categoryName" />
+	</resultMap>
+	
+	<resultMap type="com.team1.acdeal.vo.AcDTO" id="acMap">
+		<result column="ac_id" property="acId"/>
+		<result column="ac_bankname" property="acBankname"/>
+		<result column="ac_balance" property="acBalance"/>
+	</resultMap>
+	<!-- 통장정보 읽어오기 -->
+	<select id="ac_select" resultMap="acMap">
+		select * from hanbit_ac
+	</select>
+	<!-- 통장 수정하기 -->
+	<update id="ac_update" parameterType="int">
+		update hanbit_ac
+		set ac_balance = #{acBalance}
+		where ac_id = 1
+	</update>
+
+	<!-- 타입 정보 모두 읽어오기 -->
+	<select id="acType_select" resultMap="acTypeMap">
+		select * from
+		hanbit_ac_type
+	</select>
+	<!-- 카테고리 정보 모두 읽어오기 -->
+	<select id="acCategory_select" resultMap="acCategoryMap">
+		select * from
+		hanbit_ac_category
+		order by category_id asc
+	</select>
+	<!-- 카테고리 정보 수정 -->
+	<update id="acCategory_update" parameterType="com.team1.acdeal.vo.AcCategoryDTO">
+		update hanbit_ac_category
+		set category_name = #{categoryName}
+		where category_id = #{categoryId}
+	</update>
+	<!-- 카테고리 정보 삭제 -->
+	<delete id="acCategory_delete" parameterType="int">
+		delete hanbit_ac_category
+		where category_id=#{categoryId}
+	</delete>
+	<!-- 카테고리 정보 추가 -->
+	<insert id="acCategory_Insert" parameterType = "String">
+		insert into hanbit_ac_category values(seq_ac_category.NEXTVAL, #{categoryName})
+	</insert>
+
+	<select id="acDeal_count" resultType="int">
+		select count(*) from hanbit_ac_deal
+	</select>
+	
+	<!-- 거래내역 1개 읽어오기 -->
+	<select id="acDeal_select_one" resultMap="acDealMap" parameterType="int">
+		select d.deal_id, d.deal_note, d.deal_sum, d.deal_date, c.category_Name, t.type_Name
+		from	hanbit_ac_deal d, hanbit_ac_type t, hanbit_ac_category c
+		where d.type_id = t.type_id and d.category_id = c.category_id and 
+		d.deal_id = #{dealId}
+	</select>
+	<!-- 거래내역 10개씩 읽어오기 -->
+	<select id="acDeal_select10" resultMap="acDealMap" parameterType="int">
+		select d.deal_id, d.deal_note, d.deal_sum, d.deal_date, c.category_Name, t.type_Name
+		from	hanbit_ac_deal d, hanbit_ac_type t, hanbit_ac_category c
+		where d.type_id = t.type_id and d.category_id = c.category_id and rownum between #{s} and #{s}+ 9
+		order by deal_date desc
+	</select>
+	
+	<!-- 전부 읽어오기 -->
+	<select id="acDeal_select" resultMap="acDealMap" parameterType="int">
+		select d.deal_id, d.deal_note, d.deal_sum, d.deal_date, c.category_Name, t.type_Name
+		from	hanbit_ac_deal d, hanbit_ac_type t, hanbit_ac_category c
+		where d.type_id = t.type_id and d.category_id = c.category_id 
+		order by deal_date desc
+	</select>
+
+	<!-- 거래내역 추가 -->
+	<insert id="acDeal_insert" parameterType="com.team1.acdeal.vo.AcDealVO">
+		insert into
+		hanbit_ac_deal
+		values(seq_ac_deal.NEXTVAL,
+		#{dealNote},#{dealSum},#{dealDate},
+		1,#{categoryId},#{typeId})
+	</insert>
+
+	<!-- 거래내역 삭제 -->
+	<delete id="acDeal_delete" parameterType="int">
+		delete from	hanbit_ac_deal 
+		where	deal_id=#{dealId}
+	</delete>
+	
+	<update id="acDeal_update" parameterType ="com.team1.acdeal.vo.AcDealDTO">
+		update hanbit_ac_deal
+		set deal_note = #{dealNote},
+			deal_sum = #{dealSum},
+			deal_date = #{dealDate},
+			category_id = (select category_id 
+									from hanbit_ac_category 
+									where category_name = #{categoryName}),
+			type_id = (select type_id 
+									from hanbit_ac_type
+									where type_name = #{typeName})
+		where deal_id = #{dealId}
+	</update>
+
+</mapper>

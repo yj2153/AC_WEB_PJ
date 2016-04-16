@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.1.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.1.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.1.xsd">
+	<mvc:annotation-driven />
+	<mvc:default-servlet-handler />
+	<!-- 패키지 스캐너 -->
+	<context:component-scan base-package="com.team1.acdeal" />
+
+	<bean
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations" value="classpath:config/dbconn.properties" />
+	</bean>
+
+	<!-- 마이바티스 스프링 연동 설정 -->
+	<!-- 1. CP(dataSource)를 마이바티스에게 제공 -->
+	<bean
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations" value="classpath:config/dbconn.properties" />
+	</bean>
+
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="driverClassName" value="${jdbc.driver}" />
+		<property name="url" value="${jdbc.url}" />
+		<property name="username" value="${jdbc.username}" />
+		<property name="password" value="${jdbc.password}" />
+		<property name="maxActive" value="20" />
+		<property name="maxIdle" value="10" />
+	</bean>
+	<!-- 2.TransactionManager -->
+	<bean
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager"
+		id="transactionManager">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+	<!-- aopalliance-1.0.jar 필요 transaction 어노테이션 활성화 -->
+	<tx:annotation-driven transaction-manager="transactionManager" />
+
+	<!-- 2. 마이바티스 SqlSession래핑한 스프링 SqlSessionTemplate 생성등록 2.1. SqlSessionTemplate 
+		공장빈 등록 2.2. SqlSession 공장을 통한 SqlSessionTemplate 등록 2.3. SqlSessionTemplate 
+		DAO에 주입 -->
+	<!-- mybatis-spring-1.2.0.jar -->
+	<bean class="org.mybatis.spring.SqlSessionFactoryBean" id="sqlSessionFactory">
+		<property name="dataSource" ref="dataSource" />
+		<!-- 마이바티스 설정파일 경로 주입 -->
+		<property value="classpath:config/mybatis.xml" name="configLocation" />
+
+	</bean>
+
+	<bean class="org.mybatis.spring.SqlSessionTemplate" id="sqlSessionTemplate">
+		<!-- SqlSessionTemplate 공장빈을 생성자 기반 주입 -->
+		<constructor-arg ref="sqlSessionFactory" index="0" />
+	</bean>
+
+	<!-- 멀티파트 -->
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<!-- maximum file size in bytes 50MB -->
+	<property name="maxUploadSize" value="52428800" />
+</bean>
+
+</beans>

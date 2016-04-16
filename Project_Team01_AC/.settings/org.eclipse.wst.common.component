@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
+    <wb-module deploy-name="Project_Team01_AC">
+        <wb-resource deploy-path="/" source-path="/WebContent" tag="defaultRootSource"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
+        <property name="context-root" value="Project_Team01_AC"/>
+        <property name="java-output-path" value="/Project_Team01_AC/build/classes"/>
+    </wb-module>
+</project-modules>
